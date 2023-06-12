@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newIntervals) {
+        intervals.push_back(newIntervals); // Adding the new interval to be merged into intervals.
+        sort(intervals.begin(),intervals.end()); // Sorting the interevals so that the newly added interval is positioned at its designated place.
+        int length=intervals.size();
+        int prev=0;// Initializing a variable to keep track of previous interval.
+        vector<vector<int>>ans;
+        ans.push_back(intervals[0]);
+        for(int i=1;i<length;i++)
+        {
+            if(intervals[i][0]<=intervals[prev][1]) //if the current interval is inside the previous interval we are going to merge it into the previous interval
+            {
+                if(intervals[prev][1]<intervals[i][1]) // we are going to check if the ending of the previous interval is greater than the ending of current interval.
+                {
+                    //if it is greater
+                    intervals[prev][1]=intervals[i][1]; //change the ending of prev to ending of current
+                    ans.pop_back(); //as we have already added the prev to the answer we are going to pop it out and add the new version of prev into the ans.
+                    ans.push_back(intervals[prev]);
+                }
+            }
+            else //if the prev ending is not greater than start of current
+            {
+                ans.push_back(intervals[i]); //we are directly going to push it to ans
+                prev=i;// we are going to set the prev to current to check for further merges if possible.
+            }
+        }
+        return ans;
+    }
+};
