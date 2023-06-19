@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int minDistance(string word1, string word2) {
+     int n=word1.size();
+     int m=word2.size();
+     vector<vector<int>> dp(n+1,vector<int>(m+1,-1));
+     int ans= dfs(n,m,word1,word2,dp);
+     
+     return (n - ans + m - ans);
+    }
+    private:
+    int dfs(int n,int m,string word1,string word2,vector<vector<int>>&dp){
+        if(n==0 || m==0) return 0;
+        if(dp[n][m]!= -1) return dp[n][m];
+        if(word1[n-1]==word2[m-1]) return dp[n][m]= 1+ dfs(n-1,m-1,word1,word2,dp);
+        return dp[n][m]= 0 + max(dfs(n-1,m,word1,word2,dp),dfs(n,m-1,word1,word2,dp));
+    }
+};
