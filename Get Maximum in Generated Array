@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int getMaximumGenerated(int n) {
+        if(n==0) return 0;
+        vector<int> ans(n+1);
+        ans[0]=0;
+        ans[1]=1;
+    
+        solve(1,n,ans);
+        return *max_element(ans.begin(),ans.end());
+    }
+    private:
+    int solve(int n,int ind,vector<int> &ans){
+        if(n==ind) return 0;
+        if(2*n <=ind && 2*n+1 <=ind){
+        ans[2*n]=ans[n];
+        ans[2*n +1]= ans[n]+ans[n+1];
+    }
+        return solve(n+1,ind,ans);
+    }
+};
