@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& nums) {
+    int max_profit=0;
+    int mini=nums[0];
+    for(int i=1;i<nums.size();i++){
+        if(nums[i]-nums[i-1]>0) max_profit=max_profit+(nums[i]-nums[i-1]);
+    }
+    return max_profit;
+}
+};
