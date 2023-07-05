@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> findOriginalArray(vector<int>& changed) {
+        if(changed.size()&1) return {};
+        sort(changed.begin(),changed.end());
+        map<int,int>m;
+        vector<int> ans;
+        for(auto x:changed){
+            m[x]++;
+        }
+    for(int i=0;i<changed.size();i++){
+         if(m[changed[i]]==0){
+                continue;
+            }
+            m[changed[i]]--;
+            if(m[changed[i]*2]==0){
+                return {};
+            }
+            m[changed[i]*2]--;
+            ans.push_back(changed[i]);
+    }
+    
+   
+        return ans;
+    }
+};
